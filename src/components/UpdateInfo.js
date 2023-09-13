@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useState } from 'react';
 // function Copyright(props) {
 //   return (
 //     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -33,6 +33,11 @@ export default function UpdateInfoPage() {
       password: data.get('password'),
     });
   };
+  const [gender, setGender] = useState('');
+
+  const handleGenderChange = (event) => {
+    setGender(event.target.value);
+  };
 
   return (
     <div>
@@ -49,7 +54,7 @@ export default function UpdateInfoPage() {
           }}
         >
         <div class = "pageDiv">
-            <div class ="pageTitle" >
+            <div class ="pageTitle" style={{marginTop:'50px'}}>
                 회원정보 수정
             </div>
             <div class ="pageAddScript" >
@@ -67,8 +72,12 @@ export default function UpdateInfoPage() {
                                         } }}>
             <div className="setData">
                 <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <TextField
+                <Grid container direction="row" alignItems="center" marginBottom={'20px'}>
+                <Grid item xs={12} sm={3}>
+                  Id
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
                     autoComplete="given-name"
                     name="id"
                     required
@@ -76,9 +85,16 @@ export default function UpdateInfoPage() {
                     id="id"
                     label="Id"
                     autoFocus
+                    sx={{width:'300px'}}
                     />
                 </Grid>
-                <Grid item xs={10}>
+                    
+                    </Grid>
+                <Grid container direction="row" alignItems="center" marginBottom={'20px'}>
+                <Grid item xs={12} sm={3}>
+                  EMAIL
+                  </Grid>
+                  <Grid item xs={12} sm={7}>
                     <TextField
                     required
                     fullWidth
@@ -88,7 +104,15 @@ export default function UpdateInfoPage() {
                     autoComplete="email"
                     />
                 </Grid>
-                <Grid item xs={12}>
+                < Grid item xs = { 12 } sm = {2}>
+                  <button className='sendBtn'>발송</button>
+                </ Grid >
+                </ Grid >
+                <Grid container direction="row" alignItems="center" marginBottom={'20px'}>
+                <Grid item xs={12} sm={3}>
+                  {''}
+                  </Grid>
+                  <Grid item xs={12} sm={7}>
                     <TextField
                     required
                     fullWidth
@@ -98,7 +122,15 @@ export default function UpdateInfoPage() {
                     autoComplete="email-authentication-number"
                     />
                 </Grid>
-                <Grid item xs={12}>
+                < Grid item xs = { 12 } sm = {2}>
+                  <button className='authenBtn'>인증</button>
+                </ Grid >
+                </ Grid >
+                <Grid container direction="row" alignItems="center" marginBottom={'20px'}>
+                <Grid item xs={12} sm={3}>
+                  Password
+                  </Grid>
+                  <Grid item xs={12} sm={9}>
                     <TextField
                     required
                     fullWidth
@@ -108,7 +140,12 @@ export default function UpdateInfoPage() {
                     autoComplete="password"
                     />
                 </Grid>
-                <Grid item xs={12}>
+                </Grid>
+                <Grid container direction="row" alignItems="center" marginBottom={'20px'}>
+                <Grid item xs={12} sm={3}>
+                  PW Check
+                  </Grid>
+                  <Grid item xs={12} sm={9}>
                     <TextField
                     required
                     fullWidth
@@ -118,34 +155,62 @@ export default function UpdateInfoPage() {
                     id="password_check"
                     />
                 </Grid>
-                
+                </Grid>
                 </Grid>
             </div>
             <div className="middleScript">개인정보</div>
             <div className="userData">
                 <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid container direction="row" alignItems="center" marginBottom={'20px'}>
+                <Grid item xs={12} sm={3}>
+                  이름
+                  </Grid>
+                  <Grid item xs={12} sm={9}>
                     <TextField
                     autoComplete="given-name"
                     name="user_name"
                     required
                     fullWidth
                     id="user_name"
-                    label="이름"
+                    label="data"
                     autoFocus
+                    sx={{width:'300px'}}
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    id="sex"
-                    label="성별"
-                    name="sex"
-                    />
                 </Grid>
+                <Grid container direction="row" alignItems="center" marginBottom={'20px'} marginLeft={'3px'}>
+                <Grid item xs={2}>
+                  성별
+                  </Grid>
+                  {/* <Grid item xs={12} sm={9}> */}
+                <Grid>
+                  <div className="select">
+                
+                <input
+                  type="radio"
+                  id="select"
+                  name="gender"
+                  value="Male"
+                  checked={gender === 'Male'}
+                  onChange={handleGenderChange}
+                />
+                <label htmlFor="select" className={gender === 'Male' ? "selected" : ""}>남성</label>
+                
+                  <input
+                  type="radio"
+                  id="select2"
+                  name="gender"
+                  value="Female"
+                  checked={gender === 'Female'}
+                  onChange={handleGenderChange}
+                />
+                <label htmlFor="select2" className={gender === 'Female' ? "selected" : ""}>여성</label>
+              </div>
+                </Grid>
+                </Grid>
+                <Grid container direction="row" alignItems="center" marginBottom={'20px'}>
                 생년월일
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={3} sx={{marginLeft:'35px'}}>
                     <TextField
                     required
                     fullWidth
@@ -155,7 +220,7 @@ export default function UpdateInfoPage() {
                     />
                 </Grid>
                 년
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={2}>
                     <TextField
                     required
                     fullWidth
@@ -165,7 +230,7 @@ export default function UpdateInfoPage() {
                     />
                 </Grid>
                 월
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={2}>
                     <TextField
                     required
                     fullWidth
@@ -175,16 +240,23 @@ export default function UpdateInfoPage() {
                     />
                 </Grid>
                 일
-                직업
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    id="password"
-                    label="Password"
-                    name="password"
-                    autoComplete="password"
-                    />
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" marginTop={'45px'} paddingLeft={'13px'} marginBottom={'50px'}>
+                  직업
+                  <Grid item xs={10}>
+                  <select name="job" id="" class="jobSelect">
+                    <option value="0" selected>현재 직업을 선택하세요</option>
+                    <option value="elementary">초등학생</option>
+                    <option value="middle">중학생</option>
+                    <option value="high">고등학생</option>
+                    <option value="college">대학생</option>
+                    <option value="professor">교수</option>
+                    <option value="worker">직장인</option>
+                    <option value="worker">프리랜서</option>
+                    <option value="worker">주부</option>
+                    <option value="worker">기타</option>
+                  </select> 
+                  </Grid>
                 </Grid>
                 </Grid>
             </div>
@@ -201,7 +273,7 @@ export default function UpdateInfoPage() {
                 marginBottom: 50
             }}
             >
-              회원가입
+              수정완료
             </Button>
             {/* <Grid container justifyContent="flex-end">
               <Grid item>
