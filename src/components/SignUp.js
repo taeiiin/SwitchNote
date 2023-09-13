@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState } from 'react';
+import { alignProperty } from '@mui/material/styles/cssUtils';
 
 // function Copyright(props) {
 //   return (
@@ -33,7 +35,19 @@ export default function SignUpPage() {
       password: data.get('password'),
     });
   };
+  const [gender, setGender] = useState('');
 
+  const handleGenderChange = (event) => {
+    setGender(event.target.value);
+  };
+
+  const [agreePolicy, setAgreePolicy] = useState(false);
+  const [agreeInfoCollection, setAgreeInfoCollection] = useState(false);
+  const [agreePromotionEmails, setAgreePromotionEmails] = useState(false);
+  
+  const handleAgreePolicyChange = (event) => {
+    setAgreePolicy(event.target.checked);
+  };
   return (
     <div>
         {/* <ThemeProvider theme={defaultTheme}> */}
@@ -49,7 +63,7 @@ export default function SignUpPage() {
           }}
         >
         <div class = "pageDiv">
-            <div class ="pageTitle" >
+            <div class ="pageTitle" style={{marginTop:'50px'}}>
                 회원가입
             </div>
             <div class ="pageAddScript" >
@@ -88,7 +102,8 @@ export default function SignUpPage() {
                     autoComplete="email"
                     />
                 </Grid>
-                <Grid item xs={12}>
+                <button className='sendBtn'>발송</button>
+                <Grid item xs={10}>
                     <TextField
                     required
                     fullWidth
@@ -98,6 +113,7 @@ export default function SignUpPage() {
                     autoComplete="email-authentication-number"
                     />
                 </Grid>
+                <button className='authenBtn'>인증</button>
                 <Grid item xs={12}>
                     <TextField
                     required
@@ -124,81 +140,129 @@ export default function SignUpPage() {
             <div className="middleScript">개인정보</div>
             <div className="userData">
                 <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid item xs={2} >이름</Grid>
+                <Grid item xs={10}>
                     <TextField
                     autoComplete="given-name"
                     name="user_name"
                     required
                     fullWidth
                     id="user_name"
-                    label="이름"
+                    label=""
                     autoFocus
                     />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={2} >성별</Grid>
+                <Grid>
+                <div className="select">
+                <input
+                  type="radio"
+                  id="select"
+                  name="gender"
+                  value="Male"
+                  checked={gender === 'Male'}
+                  onChange={handleGenderChange}
+                />
+                <label htmlFor="select" className={gender === 'Male' ? "selected" : ""}>남성</label>
+                <input
+                  type="radio"
+                  id="select2"
+                  name="gender"
+                  value="Female"
+                  checked={gender === 'Female'}
+                  onChange={handleGenderChange}
+                />
+                <label htmlFor="select2" className={gender === 'Female' ? "selected" : ""}>여성</label>
+                
+              </div>
+                </Grid>
+                {/* <Grid item xs={12}>
                     <TextField
                     required
                     fullWidth
                     id="sex"
-                    label="성별"
+                    label=""
                     name="sex"
-                    />
-                </Grid>
-                생년월일
-                <Grid item xs={12} sm={3}>
+                    /> 
+                </Grid>*/}
+                <div>
+                  
+                </div>
+                <Grid container justifyContent="center" alignItems="center">
+                  생년월일
+                  <Grid item xs={12} sm={3}>
                     <TextField
-                    required
-                    fullWidth
-                    id="birth_year"
-                    label=""
-                    name="birth_year"
+                      required
+                      fullWidth
+                      id="birth_year"
+                      label=""
+                      name="birth_year"
                     />
-                </Grid>
-                년
-                <Grid item xs={12} sm={3}>
+                    
+                  </Grid>년
+                  <Grid item xs={12} sm={2}>
                     <TextField
-                    required
-                    fullWidth
-                    id="birth_month"
-                    label=""
-                    name="birth_month"
+                      required
+                      fullWidth
+                      id="birth_month"
+                      label=""
+                      name="birth_month"
                     />
-                </Grid>
-                월
-                <Grid item xs={12} sm={3}>
+                    
+                  </Grid>월
+                  <Grid item xs={12} sm={2}>
                     <TextField
-                    required
-                    fullWidth
-                    id="birth_month"
-                    label=""
-                    name="birth_month"
+                      required
+                      fullWidth
+                      id="birth_day"
+                      label=""
+                      name="birth_day"
                     />
+                    
+                  </Grid>일 
                 </Grid>
-                일
-                직업
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    id="password"
-                    label="Password"
-                    name="password"
-                    autoComplete="password"
-                    />
+                <Grid container justifyContent="center" alignItems="center" marginTop={'45px'} paddingLeft={'13px'} marginBottom={'50px'}>
+                  직업
+                  <Grid item xs={10}>
+                  <select name="job" id="" class="jobSelect">
+                    <option value="0" selected>현재 직업을 선택하세요</option>
+                    <option value="elementary">초등학생</option>
+                    <option value="middle">중학생</option>
+                    <option value="high">고등학생</option>
+                    <option value="college">대학생</option>
+                    <option value="professor">교수</option>
+                    <option value="worker">직장인</option>
+                    <option value="worker">프리랜서</option>
+                    <option value="worker">주부</option>
+                    <option value="worker">기타</option>
+                  </select> 
+                  </Grid>
                 </Grid>
+                
+                
+                
                 </Grid>
             </div>
             <div className='middleScript'>이용약관</div>
             <div className='policy'>
                 <div className='policyContent'>
-                  이용약관 동의 (필수)
+                  <div class="custom-checkbox">
+                    <input type="checkbox" id="agreePolicy" />
+                    <label for="agreePolicy">이용약관 동의 (필수)</label>
+                  </div>
                 </div>
                 <div className='policyContent'>
-                  개인 정보 수집 및 이용 동의 (필수)
+                  <div class="custom-checkbox">
+                    <input type='checkbox' id='agreeInfoCollection' />
+                    <label for='agreeInfoCollection'>개인 정보 수집 및 이용 동의 (필수)</label>
+                  </div>
                 </div>
                 <div className='policyContent'>
-                  이벤트 등 프로모션 메일 수신 동의 (선택)
-                </div>
+                  <div class='custom-checkbox'>
+                    <input type='checkbox' id='agreePromotionEmails' />
+                    <label for='agreePromotionEmails'>이벤트 등 프로모션 메일 수신 동의 (선택)</label>
+                  </div>
+            </div>
             </div>
             <Button
               type="submit"

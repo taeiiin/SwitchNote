@@ -5,6 +5,8 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+
 // import{Link} from 'react-router-doms'
 function Copyright(props) {
     return (
@@ -72,7 +74,10 @@ export default function FindIdPwPage() {
                     <div className='findContent'>
                         <td><div className='middleScript'>아이디 찾기</div>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
+                    <Grid container spacing={2}>
+                    <Grid container direction="row" alignItems="center">
+                        <Grid item xs={12} sm={9}>
+                            <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -82,7 +87,14 @@ export default function FindIdPwPage() {
                             autoComplete="id"
                             autoFocus
                         />
-                        <TextField
+                        </Grid>
+                        <Grid item xs={12} sm={3}>
+                            <button className='sendBtn'>발송</button>
+                        </Grid>
+                        </Grid>
+                        <Grid container direction="row" alignItems="center">
+                        <Grid item xs={12} sm={9}>
+                            <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -92,27 +104,21 @@ export default function FindIdPwPage() {
                             id="password"
                             autoComplete="current-password"
                         />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2, 
-                                backgroundColor: '#4982F7',
-                                fontFamily: 'Noto Sans KR',
-                                borderRadius:2,
-                                boxShadow:5,
-                                textDecorationStyle:'bold'
-                            }}
-                        >
-                            인증
-                        </Button>
+                        </Grid>
+                        < Grid item xs = { 12 } sm = { 3 }>
+                        <button className='authenBtn'>인증</button>
+                        </ Grid >
+                        </Grid>
+                        </Grid>
                     </Box></td>
                     </div>
                     <td><div className='horizontalLine'></div></td>
                     <td><div className='findContent'>
                     <div className='middleScript'>비밀번호 찾기</div>
+                    {/* <Grid container spacing={2}> */}
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
+                        <Grid>
+                            <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -122,7 +128,10 @@ export default function FindIdPwPage() {
                             autoComplete="id"
                             autoFocus
                         />
-                        <TextField
+                        </Grid>
+                        <Grid container direction="row" alignItems="center">
+                        <Grid item xs={12} sm={9}>
+                            <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -131,7 +140,14 @@ export default function FindIdPwPage() {
                             type="email"
                             id="email"
                         />
-                        <TextField
+                        </Grid>
+                        <Grid item xs={12} sm={3}>
+                            <button className='sendBtn'>발송</button>
+                        </Grid>
+                        </Grid>
+                        <Grid container direction="row" alignItems="center">
+                            <Grid item xs={12} sm={9}>
+                            <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -139,22 +155,14 @@ export default function FindIdPwPage() {
                             label="전송된 인증번호를 입력해주세요"
                             type="email_authentication"
                             id="email_authentication"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2, 
-                                backgroundColor: '#4982F7',
-                                fontFamily: 'Noto Sans KR',
-                                borderRadius:2,
-                                boxShadow:5,
-                                textDecorationStyle:'bold'
-                            }}
-                        >
-                            인증
-                        </Button>   
+                        /> 
+                        </Grid>
+                        < Grid item xs = { 12 } sm = { 3 }>
+                        <button className='authenBtn'>인증</button>
+                        </ Grid >
+                        </Grid>
                     </Box>
+                    {/* </Grid> */}
                     </div></td>
                     </tr></table>
                 </Box>

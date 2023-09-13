@@ -12,8 +12,8 @@ function NavBar() {
                 <li><a href="" className="nav1">WORKSPACE</a></li>
                 <li><a href="" className="nav1">TEMPLATE</a></li>
                 <li><Link to="/Guide" className="nav1">GUIDE</Link></li>
-                <li><a href="" className="nav1">MYPAGE</a></li>
-                <li><a href="" className="logoutB">logout</a></li>
+                <li><a href="/UpdateInfo" className="nav1">MYPAGE</a></li>
+                <li><a href="/SignIn" className="logoutB">logout</a></li>
                 </ul> 
                 <Routes>
                     <Route path="/Guide" element={<Guide />}></Route>
