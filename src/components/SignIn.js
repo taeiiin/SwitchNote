@@ -111,15 +111,15 @@ export default function SignInPage() {
                             Login
                         </Button>
                         
-                        <Grid container>
+                        <Grid container sx={{textAlign:'justify'}}>
                             <Grid item xs>
                                 <Link href="/SignUp" 
                                 variant="body2" 
-                                sx={{color:'#9B9B9B', textDecorationLine:'none'}}>
+                                sx={{color:'#9B9B9B', textDecorationLine:'none', margin:'0',padding:0}}>
                                     회원가입
                                 </Link>
                             </Grid>
-                            <Grid item>
+                            <Grid item >
                                 <Link href="/FindIdPw" 
                                 variant="body2"
                                 sx={{color:'#9B9B9B', textDecorationLine:'none'}}
