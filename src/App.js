@@ -25,7 +25,7 @@ function App() {
                 <li><a href="" className="nav1">WORKSPACE</a></li>
                 <li><Link to='/Templates' className='nav1'>TEMPLATE</Link></li>
                 <li><Link to="/Guide" className="nav1">GUIDE</Link></li>
-                <li><Link to="/TxtInput" className="nav1">MYPAGE</Link></li>
+                <li><Link to="/UpdateInfo" className="nav1">MYPAGE</Link></li>
                 <li><Link to='/SignIn' className="logoutB">logout</Link></li>
                 </ul> 
             </div>
