@@ -430,7 +430,7 @@
 .convertToPresent{
   background-color: #4982F7;
   height:225px;
-  width:100%;
+  width:100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -693,4 +693,69 @@ td{
   color: #9B9B9B;
   text-align: center;
   margin-left: 25px;
+}
+
+
+/*gayeon*/
+    /* My Button */
+.MyButton {
+  cursor:pointer;
+  border:none;
+  border-radius:5px;
+
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:20px;
+  padding-right:20px;
+
+  color:white;
+
+  width:300px;
+}
+
+.MyButton_blue{
+  background-color: #4982F7;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.MyButton_gray{
+  background-color: lightgray;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.MyButton_line{
+  color:gray;
+  border-top: solid lightgray;
+  border-bottom: solid lightgray;
+  background-color:white;
+}
+
+.MyButton_small{
+  width:100px;
+}
+
+    /* MyTextarea */
+.MyTextarea {
+  width: 50vw;
+  height: 200px;
+  padding: 10px;
+  border-top: solid gray;
+  border-bottom: solid gray;
+  border-left: none;
+  border-right: none;
+  font-size:15px;
+  resize:none;
+}
+
+.MyTextarea_small {
+  height:40px;
+  border: none;
+  text-align: center;
+}
+
+.MyTextarea_title {
+  height:40px;
+  font-size:25px;
+  border: none;
+  text-align: center;
 }
