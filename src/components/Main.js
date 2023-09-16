@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 // import{Link} from 'react-router-doms'
 function Copyright(props) {
@@ -59,31 +60,38 @@ export default function SignInPage() {
 
                 </div>
                 <div className='convertToDiv'>
-                    <div className='convertToPresent'>
-                        <div className='leftPre'>
-                            <img src={require('./images/lineWhite.png')} width='500px'/>
-                            <p className='MaintoSub'style={{color :'white'}}> 텍스트만 붙여 넣으면 프레젠테이션 자료 완성</p>
-                            <p className='MaintoSub'style={{color :'white'}}> 내용에 맞는 디자인 추천까지</p>
-                        </div>
-                        <div className='rightPre'>
-                            <p className='MainconvertTo' style={{color :'#D0D0D0'}}>Convert to</p>
-                            <p className='MaintoText' style={{color :'white'}}>Presentation</p>
-                        </div>
-                    </div>
-                    <div className='convertToScript'>
-                        <div className='leftScr'>
-                            <div>
-                                {/* 영어 전용 폰트로 바꾸기 */}
-                                <p className='MainconvertTo' style={{color :'#ACABAB'}}>Convert to</p> 
-                                <p className='MaintoText' style={{color :'#4982F7'}}>Script</p>
+                    {/*div 클릭하면 발표자료 만드는 페이지로 이동 (우선 PPTUpload 페이지로 이동하도록 해놨어용~ 수정하기!)*/}
+                    <Link to="./PPTUpload" style={{ textDecoration: 'none' }}>
+                        <div className='convertToPresent'>
+                            <div className='leftPre'>
+                                <img src={require('./images/lineWhite.png')} width='500px'/>
+                                <p className='MaintoSub'style={{color :'white'}}> 텍스트만 붙여 넣으면 프레젠테이션 자료 완성</p>
+                                <p className='MaintoSub'style={{color :'white'}}> 내용에 맞는 디자인 추천까지</p>
+                            </div>
+                            <div className='rightPre'>
+                                <p className='MainconvertTo' style={{color :'#D0D0D0'}}>Convert to</p>
+                                <p className='MaintoText' style={{color :'white'}}>Presentation</p>
                             </div>
                         </div>
-                        <div className='rightScr'>
-                            <p className='MaintoSub' style={{color :'#4982F7'}}> 프레젠테이션만 붙여넣으면 발표 대본 완성</p>
-                            <p className='MaintoSub' style={{color :'#4982F7'}}> 한국어 맞춤으로 자연스러운 흐름</p>
-                            <img src={require('./images/lineBlue.png')} width='500px'/>
+                    </Link>
+
+                    {/*div 클릭하면 PPTUpload 페이지로 이동*/}
+                    <Link to="./PPTUpload" style={{ textDecoration: 'none' }}>
+                        <div className='convertToScript'>
+                            <div className='leftScr'>
+                                <div>
+                                    {/* 영어 전용 폰트로 바꾸기 */}
+                                    <p className='MainconvertTo' style={{color :'#ACABAB'}}>Convert to</p> 
+                                    <p className='MaintoText' style={{color :'#4982F7'}}>Script</p>
+                                </div>
+                            </div>
+                            <div className='rightScr'>
+                                <p className='MaintoSub' style={{color :'#4982F7'}}> 프레젠테이션만 붙여넣으면 발표 대본 완성</p>
+                                <p className='MaintoSub' style={{color :'#4982F7'}}> 한국어 맞춤으로 자연스러운 흐름</p>
+                                <img src={require('./images/lineBlue.png')} width='500px'/>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>
