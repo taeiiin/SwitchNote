@@ -16,6 +16,23 @@ import Workspace from "./components/Workspace";
 import PPTEditor from "./components/PPTEditor";
 import { BrowserRouter as Router, Routes, Route, Switch, Link } from 'react-router-dom';
 
+const express = require("express");
+const path = require("path");
+
+const app = express();
+
+app.set("port", process.env.PORT || 5000);
+
+app.use(express.static(path.join(__dirname, "FE_with_react/build")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "/FE_with_react/build/index.html"));
+});
+
+app.listen(app.get("port"), () => {
+  console.log(app.get("port"), "번 포트에서 대기중..");
+});
+
 /*아직 DB 구축 전이라서 이렇게 넣음..*/
 const projects = [
   {
