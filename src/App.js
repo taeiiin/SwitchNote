@@ -34,24 +34,16 @@ app.listen(app.get("port"), () => {
 });
 
 /*아직 DB 구축 전이라서 이렇게 넣음..*/
-const projects = [
-  {
-    id: 1,
-    type: "ppt",
-    title: "프로젝트 1"
-  },
-  {
-    id: 2,
-    type: "ppt",
-    title: "프로젝트 2"
-  },
-  {
-    id: 3,
-    type: "script",
-    title: "프로젝트 3"
-  },
-];
+const scriptThumbnail = 'https://cdn.pixabay.com/photo/2017/06/10/07/13/file-2389211_1280.png';
+const pptThumbnail = 'https://cdn.pixabay.com/photo/2022/03/08/03/57/ppt-7054986_1280.png';
 
+const projects = [
+  { id: '1', title: '논문 발표 대본', content: 'AWS 기반 AI 프레젠테이션 자동화 서비스 개발에 관한 연구에 대해 발표할 홍길동입니다.', type: 'script', thumbnail: scriptThumbnail},
+  { id: '2', title: '3주차 프레젠테이션', content: '안녕하세요. 5조 발표를 맡은', type: 'script', thumbnail: scriptThumbnail},
+  { id: '3', title: '프로모션 기획안', content: '브랜드 하나를 선정하여 프로모션 기획안을 작성함', type: 'script', thumbnail: scriptThumbnail},
+  { id: '4', title: '논문 발표 자료', content:'논문 발표 자료', type:'ppt', thumbnail: pptThumbnail},
+  { id: '5', title: '프로젝트종합설계.pptx', content:'프로젝트종합설계.pptx', type:'ppt', thumbnail: pptThumbnail}
+];
 
 function App() {
   
@@ -88,7 +80,7 @@ function App() {
           <Route path="/SignUp" element={<SignUp />}/>
           <Route path="/FindIdPw" element={<FindIdPw />}/>
           <Route path="/UpdateInfo" element={<UpdateInfo />}/>
-          <Route path="/TextEditor" element={<TextEditor />}/>
+          <Route path="/TextEditor/:projectId?" element={<TextEditor getProjectById={getProjectById} />} />
           <Route path="/PPTUpload" element={<PPTUpload />}/>
           <Route path="/Workspace" element={<Workspace projects={projects} />} />
           <Route path="/PPTEditor" element={<PPTEditor />}/>

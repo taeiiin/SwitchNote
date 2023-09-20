@@ -60,8 +60,8 @@ export default function SignInPage() {
 
                 </div>
                 <div className='convertToDiv'>
-                    {/*div 클릭하면 발표자료 만드는 페이지로 이동 (우선 PPTUpload 페이지로 이동하도록 해놨어용~ 수정하기!)*/}
-                    <Link to="./PPTUpload" style={{ textDecoration: 'none' }}>
+                    {/*div 클릭하면 발표자료 만드는 페이지로 이동*/}
+                    <Link to="./TextEditor" style={{ textDecoration: 'none' }}>
                         <div className='convertToPresent'>
                             <div className='leftPre'>
                                 <img src={require('./images/lineWhite.png')} width='500px'/>
