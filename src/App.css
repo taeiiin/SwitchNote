@@ -759,3 +759,22 @@ td{
   border: none;
   text-align: center;
 }
+
+.thumbnail span {
+  position: absolute;
+  bottom: 10px;
+  color: #fff;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title span {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: black;
+}
