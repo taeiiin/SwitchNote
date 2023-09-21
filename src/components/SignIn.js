@@ -5,27 +5,10 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-// import { BrowserRouter as Router,Route,Routes } from 'react-router-dom';
-// import MainPage from './Page/MainPage.js';
-// import SignUpPage from './Page/SignUpPage.js';
-// import FindIdPwPage from './Page/FindIdPwPage.js';
-
-// import{Link} from 'react-router-doms'
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {/*{'Copyright © '}*/}
-            {/*<Link color="inherit" href="https://naver.com/">*/}
-            {/*    Your Website*/}
-            {/*</Link>{' '}*/}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {useContext} from 'react';
+import { AuthContext } from '../App';
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme({
     typography: {
@@ -37,13 +20,18 @@ const defaultTheme = createTheme({
 });
 
 export default function SignInPage() {
+    const { isLoggedIn, handleLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('id'),
-            password: data.get('password'),
-        });
+            event.preventDefault();
+            const data = new FormData(event.currentTarget);
+            console.log({
+                id: data.get('id'),
+                password: data.get('password'),
+            });
+            handleLogin();
+            navigate("/");
     };
 
     return (
@@ -96,6 +84,23 @@ export default function SignInPage() {
                         <div class="easyLogin">
                         <a href="/"><img src={require('./images/easyLogin.png')} width="350px" alt="Easy-Login" border="0" /></a>                        
                         </div>
+                        {isLoggedIn ? (
+                            <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2, 
+                                backgroundColor: '#4982F7',
+                                fontFamily: 'Noto Sans KR',
+                                borderRadius:2,
+                                boxShadow:5,
+                                textDecorationStyle:'bold'
+                            }}
+                            onClick={handleLogin}
+                        >
+                            Login 상태입니다.(어차피 이거 안보일거임)
+                        </Button>
+                        ):(
                         <Button
                             type="submit"
                             fullWidth
@@ -107,9 +112,13 @@ export default function SignInPage() {
                                 boxShadow:5,
                                 textDecorationStyle:'bold'
                             }}
+                            onClick={handleLogin}
                         >
                             Login
                         </Button>
+                        )
+                        }
+                        
                         
                         <Grid container sx={{textAlign:'justify'}}>
                             <Grid item xs>
@@ -130,17 +139,7 @@ export default function SignInPage() {
                         </Grid>
                     </Box>
                 </Box>
-                {/*<Copyright sx={{ mt: 8, mb: 4 }} />*/}
-            </div>{/* </Container> */}
-        {/* </ThemeProvider> */}
-        {/* <Router>
-                    <Routes>
-                        <Route path="/" component={MainPage} exact/>
-                        <Route path="/signUp" element={SignUpPage} exact/>
-                        <Route path="/findIdPw" element={FindIdPwPage} exact/>
-                    </Routes>
-                </Router> */}
-
+            </div>
         </div> 
     );
 }
