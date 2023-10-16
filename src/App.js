@@ -14,26 +14,41 @@ import TextEditor from "./components/TextEditor";
 import PPTUpload from "./components/PPTUpload";
 import Workspace from "./components/Workspace";
 import PPTEditor from "./components/PPTEditor";
+<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route, Switch, Link, Navigate } from 'react-router-dom';
 import {useState, createContext} from 'react';
+=======
+import { BrowserRouter as Router, Routes, Route, Switch, Link } from 'react-router-dom';
+import {useState, createContext} from 'react';
+
+const express = require("express");
+const path = require("path");
+
+const app = express();
+
+app.set("port", process.env.PORT || 5000);
+
+app.use(express.static(path.join(__dirname, "FE_with_react/build")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "/FE_with_react/build/index.html"));
+});
+
+app.listen(app.get("port"), () => {
+  console.log(app.get("port"), "번 포트에서 대기중..");
+});
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
 
 /*아직 DB 구축 전이라서 이렇게 넣음..*/
+const scriptThumbnail = 'https://cdn.pixabay.com/photo/2017/06/10/07/13/file-2389211_1280.png';
+const pptThumbnail = 'https://cdn.pixabay.com/photo/2022/03/08/03/57/ppt-7054986_1280.png';
+
 const projects = [
-  {
-    id: 1,
-    type: "ppt",
-    title: "프로젝트 1"
-  },
-  {
-    id: 2,
-    type: "ppt",
-    title: "프로젝트 2"
-  },
-  {
-    id: 3,
-    type: "script",
-    title: "프로젝트 3"
-  },
+  { id: '1', title: '논문 발표 대본', content: 'AWS 기반 AI 프레젠테이션 자동화 서비스 개발에 관한 연구에 대해 발표할 홍길동입니다.', type: 'script', thumbnail: scriptThumbnail},
+  { id: '2', title: '3주차 프레젠테이션', content: '안녕하세요. 5조 발표를 맡은', type: 'script', thumbnail: scriptThumbnail},
+  { id: '3', title: '프로모션 기획안', content: '브랜드 하나를 선정하여 프로모션 기획안을 작성함', type: 'script', thumbnail: scriptThumbnail},
+  { id: '4', title: '논문 발표 자료', content:'논문 발표 자료', type:'ppt', thumbnail: pptThumbnail},
+  { id: '5', title: '프로젝트종합설계.pptx', content:'프로젝트종합설계.pptx', type:'ppt', thumbnail: pptThumbnail}
 ];
 
 export const AuthContext = createContext();
@@ -41,7 +56,11 @@ export const AuthContext = createContext();
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
   const handleLogin = () => {
     // 로그인 처리
     setIsLoggedIn(true);
@@ -50,9 +69,14 @@ function App() {
   const handleLogout = () => {
     // 로그아웃 처리
     setIsLoggedIn(false);
+<<<<<<< HEAD
     localStorage.removeItem("key");
   };
 
+=======
+  };
+  
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
   /*아직 DB 구축 전이라서 이렇게 넣음..*/
   const getProjectById = (id) => {
     return projects.find((project) => project.id === parseInt(id));
@@ -61,7 +85,11 @@ function App() {
   return (
   
     <BrowserRouter>
+<<<<<<< HEAD
      <AuthContext.Provider value={{ isLoggedIn, handleLogin, handleLogout }}>
+=======
+    <AuthContext.Provider value={{ isLoggedIn, handleLogin, handleLogout }}>
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
     <div className="App">
       <header className="App-header">
       <div>
@@ -72,7 +100,10 @@ function App() {
                 <li><Link to='/Templates' className='nav1'>TEMPLATE</Link></li>
                 <li><Link to="/Guide" className="nav1">GUIDE</Link></li>
                 <li><Link to="/UpdateInfo" className="nav1">MYPAGE</Link></li>
+<<<<<<< HEAD
                 {/* <li><Link to='/SignIn' className="logoutB">s</Link></li> */}
+=======
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
                 {isLoggedIn? (<li><Link to="/" onClick={handleLogout} className="logoutB">logout</Link></li>):(
                         <li><Link to="/SignIn" className="logoutB">login</Link></li>
                                 )}
@@ -91,7 +122,7 @@ function App() {
           <Route path="/SignUp" element={<SignUp />}/>
           <Route path="/FindIdPw" element={<FindIdPw />}/>
           <Route path="/UpdateInfo" element={<UpdateInfo />}/>
-          <Route path="/TextEditor" element={<TextEditor />}/>
+          <Route path="/TextEditor/:projectId?" element={<TextEditor getProjectById={getProjectById} />} />
           <Route path="/PPTUpload" element={<PPTUpload />}/>
           <Route path="/Workspace" element={<Workspace projects={projects} />} />
           <Route path="/PPTEditor" element={<PPTEditor />}/>
@@ -99,7 +130,11 @@ function App() {
         {/* <Main /> */}
       </header>
     </div>
+<<<<<<< HEAD
      </AuthContext.Provider>
+=======
+    </AuthContext.Provider>
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
     </BrowserRouter>
    
   );

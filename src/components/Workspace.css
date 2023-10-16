@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
   padding: 2rem;
 }
 
@@ -75,4 +76,33 @@ white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
 font-size:large;
+=======
+  width: 200px;
+  height: 300px;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.project img {
+  width: 300px;
+  object-fit: contain;
+}
+
+.project thumbnail span {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  object-fit: contain;
+}
+
+.title span {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size:large;
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
 }

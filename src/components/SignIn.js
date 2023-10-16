@@ -6,10 +6,16 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+<<<<<<< HEAD
 import {useContext,useState} from 'react';
 import { AuthContext } from '../App';
 import { json, useNavigate } from "react-router-dom";
 import axios from 'axios';
+=======
+import {useContext} from 'react';
+import { AuthContext } from '../App';
+import { useNavigate } from "react-router-dom";
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
 
 const defaultTheme = createTheme({
     typography: {
@@ -21,13 +27,17 @@ const defaultTheme = createTheme({
 });
 
 export default function SignInPage() {
+<<<<<<< HEAD
     const [loginId, setLoginId] = useState('');
     const [password, setPassword] = useState('');
+=======
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
     const { isLoggedIn, handleLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
             event.preventDefault();
+<<<<<<< HEAD
             fetch('/jwt-api-login/login', {
                 method:'POST',
                 headers:{
@@ -59,6 +69,15 @@ export default function SignInPage() {
 
                 });
 
+=======
+            const data = new FormData(event.currentTarget);
+            console.log({
+                id: data.get('id'),
+                password: data.get('password'),
+            });
+            handleLogin();
+            navigate("/");
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
     };
 
     return (
@@ -127,9 +146,15 @@ export default function SignInPage() {
                                 boxShadow:5,
                                 textDecorationStyle:'bold'
                             }}
+<<<<<<< HEAD
                             onClick={handleSubmit}
                         >
                             이 문자열이 보이면 안 되는데
+=======
+                            onClick={handleLogin}
+                        >
+                            Login 상태입니다.(어차피 이거 안보일거임)
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
                         </Button>
                         ):(
                         <Button
@@ -143,7 +168,11 @@ export default function SignInPage() {
                                 boxShadow:5,
                                 textDecorationStyle:'bold'
                             }}
+<<<<<<< HEAD
                             onClick={handleSubmit}
+=======
+                            onClick={handleLogin}
+>>>>>>> eb506111c296cfdb11ee7832fe2dcfcfe1466093
                         >
                             Login
                         </Button>
