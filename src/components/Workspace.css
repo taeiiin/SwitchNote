@@ -1,65 +1,78 @@
 .workspace {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-  }
-
-.project-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.project-btn {
-  padding: 0.5rem 1rem;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: lightgray;
-  color: white;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.project-btn.ppt.active {
-  background-color: skyblue;
-  color: black;
-}
-
-.project-btn.script.active {
-  background-color: lightgray;
-  color: black;
-}
-
-.project-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  background-color: skyblue;
-  padding: 2rem;
-  border-radius: 5px;
-}
-
-.project {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 128px;
-  height: 128px;
-  border: 2px solid #333;
-  border-radius: 5px;
-  overflow: hidden;
-  cursor: pointer;
-  text-decoration: none;
-  background-color: lightgray;
+  padding: 2rem;
+}
+
+.project-container {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 1rem;
+margin-bottom: 2rem;
+}
+
+.project-btn {
+padding: 0.5rem 1rem;
+font-size: 1.2rem;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+background-color: lightgray;
+color: white;
+transition: background-color 0.3s, color 0.3s;
+}
+
+.project-btn.ppt.active {
+background-color: skyblue;
+color: black;
+}
+
+.project-btn.script.active {
+background-color: lightgray;
+color: black;
+}
+
+.project-list {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 1rem;
+background-color: skyblue;
+padding: 2rem;
+border-radius: 5px;
+}
+
+.project {
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 200px;
+height: 300px;
+border-radius: 5px;
+overflow: hidden;
+cursor: pointer;
+text-decoration: none;
 }
 
 .project img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+width: 300px;
+object-fit: contain;
+}
+
+.project thumbnail span {
+white-space: nowrap; 
+overflow: hidden;
+text-overflow: ellipsis; 
+object-fit: contain;
+}
+
+.title span {
+display: block;
+width: 100%;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+font-size:large;
 }

@@ -24,8 +24,10 @@ function PPTUpload() {
 
   return (
     <div>
-      <h1 style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>PPT to Script</h1>
-      <h2 style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>버튼 하나, 나의 든든한 서포터</h2>
+      {/* 일단 제가 사용한 css 적용할게요_jy */}
+      <p class='pageTitle'>PPT to Script</p>
+      <p class='pageAddScript'>버튼 하나, 나의 든든한 서포터</p> 
+      {/* <p style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color:'black' }}>버튼 하나, 나의 든든한 서포터</p> */}
       <p style={{ color: 'lightgray', marginTop: '100px'}}>PPT 업로드</p>
 
       <input
@@ -57,7 +59,7 @@ function PPTUpload() {
         워크스페이스에서 찾기
       </a>
 
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '100px'}}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '60px'}}>
       <MyButton text={'대본생성'}
             type={"blue"}
       />

@@ -81,10 +81,10 @@ export default function FindIdPwPage() {
                             margin="normal"
                             required
                             fullWidth
-                            id="id"
-                            label="Id"
-                            name="id"
-                            autoComplete="id"
+                            id="EMAIL"
+                            label="EMAIL"
+                            name="EMAIL"
+                            autoComplete="EMAIL"
                             autoFocus
                         />
                         </Grid>

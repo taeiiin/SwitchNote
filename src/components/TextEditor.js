@@ -1,21 +1,35 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import {useParams} from 'react-router-dom'
 import refreshIcon from './images/refreshIcon.png';
 import copyIcon from './images/copyIcon.png';
 import MyButton from './MyButton.js';
 import MyTextarea from './MyTextarea.js';
 
-function TextEditor() {
-  const [text, setText] = useState('');
+function TextEditor({ getProjectById }) {
+  const [projectTitle, setProjectTitle] = useState('');
+  const [project, setProject] = useState(null); // 프로젝트 데이터를 저장할 상태 추가
   const textAreaRef = useRef(null);
+  const { projectId } = useParams();
+
+  useEffect(() => {
+    if (projectId) {
+      const projectData = getProjectById(projectId);
+      if (projectData && textAreaRef.current) {
+        textAreaRef.current.value = projectData.content;
+        setProject(projectData); // 프로젝트 데이터 저장
+        setProjectTitle(projectData.title); // 프로젝트 제목 저장
+      }
+    }
+  }, [projectId]);
   
   const handleTextChange = (e) => {
-    setText(e.target.value);
+    setProject({...project, content: e.target.value});
   };
-
+  
   const handleClearText = () => {
     if(textAreaRef.current) {
       textAreaRef.current.value = '';
-      setText('');
+      setProject({...project, content: ''});
     }
   };
 
@@ -26,23 +40,32 @@ function TextEditor() {
     }
   };
 
-  const handleSaveWorkspace = () => {
-    // Workspace 저장 구현
+  const handleCreatePPT = () => {
+    // PPT 생성 구현
   };
 
   const handleDownload = () => {
-    // 파일 다운로드 구현
+    const element = document.createElement("a");
+    const file = new Blob([project ? project.content : ''], { type: "text/plain" });
+    element.href = URL.createObjectURL(file);
+    element.download = project ? `${project.title}.txt` : "Untitled.txt";
+    document.body.appendChild(element); 
+    element.click();
   };
-
+  
   return (
     <div>
+      <h3 style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>TEXT 변환, 그리고 PPT 생성</h3>
+
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <label htmlFor="fileName"></label>
           <MyTextarea
-            placeholder={'파일명을 입력하세요'}
+            placeholder={project ? project.title : '파일명을 입력하세요'} // 제목이 있으면 그걸 보여주고 없으면 플레이스홀더 텍스트 보여주기
             type={"title"}
+            value={project ? project.title : ''}
+            onChange={(e) => setProject({...project, title: e.target.value})}
           />
-
+  
         <label htmlFor="description"></label>
           <MyTextarea
             placeholder={'부가설명을 입력하세요'}
@@ -64,8 +87,8 @@ function TextEditor() {
           ref={textAreaRef}
           id="text"
           rows="10"
-          value={text}
-          onChange={handleTextChange}
+          value={project ? project.content : ''} // 프로젝트 내용이 있으면 그걸 보여주고 없으면 빈 문자열 보여주기
+          onChange={(e) => setProject({...project, content: e.target.value})} // 내용 변경 시 프로젝트 데이터도 함께 업데이트하기
         />
       </div>
 
@@ -79,8 +102,8 @@ function TextEditor() {
       </div>
       
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap:'10px', marginTop:'50px'}}>
-        <MyButton text={'Workspace에 저장'}
-            onClick={handleSaveWorkspace}
+        <MyButton text={'PPT 생성'}
+            onClick={handleCreatePPT}
             type={"blue"}
         />
         <MyButton text={'.txt 파일로 다운로드'}

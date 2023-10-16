@@ -5,27 +5,11 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-// import { BrowserRouter as Router,Route,Routes } from 'react-router-dom';
-// import MainPage from './Page/MainPage.js';
-// import SignUpPage from './Page/SignUpPage.js';
-// import FindIdPwPage from './Page/FindIdPwPage.js';
-
-// import{Link} from 'react-router-doms'
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {/*{'Copyright © '}*/}
-            {/*<Link color="inherit" href="https://naver.com/">*/}
-            {/*    Your Website*/}
-            {/*</Link>{' '}*/}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {useContext,useState} from 'react';
+import { AuthContext } from '../App';
+import { json, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const defaultTheme = createTheme({
     typography: {
@@ -37,13 +21,44 @@ const defaultTheme = createTheme({
 });
 
 export default function SignInPage() {
+    const [loginId, setLoginId] = useState('');
+    const [password, setPassword] = useState('');
+    const { isLoggedIn, handleLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('id'),
-            password: data.get('password'),
-        });
+            event.preventDefault();
+            fetch('/jwt-api-login/login', {
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body: JSON.stringify({loginId,password}),
+            })
+                // .then(response=>response.json())
+                .then((response)=>{
+                    if(response.ok) {
+                        return response.text();
+                    }else{
+                        throw new Error('로그인에 실패했습니다.');
+                    }
+                })
+                .then((data)=>{
+                    const jwtToken = data;
+                    axios.defaults.headers.common[
+                        "Authorization"
+                    ] = `Bearer ${jwtToken}`;
+                    localStorage.setItem('jwtToken',jwtToken);
+                    console.log(jwtToken);
+                    handleLogin();
+                    navigate("/");
+                })
+                .catch((error)=>{
+                    console.error(error);
+                    alert('로그인에 실패했습니다.');
+
+                });
+
     };
 
     return (
@@ -77,10 +92,12 @@ export default function SignInPage() {
                             margin="normal"
                             required
                             fullWidth
-                            id="id"
+                            id="loginId"
                             label="Id"
-                            name="id"
-                            autoComplete="id"
+                            value={loginId}
+                            onChange={(e)=>setLoginId(e.target.value)}
+                            name="loginId"
+                            autoComplete="username"
                             autoFocus
                         />
                         <TextField
@@ -89,13 +106,32 @@ export default function SignInPage() {
                             fullWidth
                             name="password"
                             label="Password"
+                            value={password}
+                            onChange={(e)=>setPassword(e.target.value)}
                             type="password"
                             id="password"
                             autoComplete="current-password"
                         />
                         <div class="easyLogin">
-                        <a href="/"><img src={require('./images/easyLogin.png')} width="350px" alt="Easy-Login" border="0" /></a>                        
+                        {/* <a href="/"><img src={require('./images/easyLogin.png')} width="350px" alt="Easy-Login" border="0" /></a>                         */}
                         </div>
+                        {isLoggedIn ? (
+                            <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2, 
+                                backgroundColor: '#4982F7',
+                                fontFamily: 'Noto Sans KR',
+                                borderRadius:2,
+                                boxShadow:5,
+                                textDecorationStyle:'bold'
+                            }}
+                            onClick={handleSubmit}
+                        >
+                            이 문자열이 보이면 안 되는데
+                        </Button>
+                        ):(
                         <Button
                             type="submit"
                             fullWidth
@@ -107,9 +143,13 @@ export default function SignInPage() {
                                 boxShadow:5,
                                 textDecorationStyle:'bold'
                             }}
+                            onClick={handleSubmit}
                         >
                             Login
                         </Button>
+                        )
+                        }
+                        
                         
                         <Grid container sx={{textAlign:'justify'}}>
                             <Grid item xs>
@@ -130,17 +170,7 @@ export default function SignInPage() {
                         </Grid>
                     </Box>
                 </Box>
-                {/*<Copyright sx={{ mt: 8, mb: 4 }} />*/}
-            </div>{/* </Container> */}
-        {/* </ThemeProvider> */}
-        {/* <Router>
-                    <Routes>
-                        <Route path="/" component={MainPage} exact/>
-                        <Route path="/signUp" element={SignUpPage} exact/>
-                        <Route path="/findIdPw" element={FindIdPwPage} exact/>
-                    </Routes>
-                </Router> */}
-
+            </div>
         </div> 
     );
 }

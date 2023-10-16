@@ -14,7 +14,8 @@ import TextEditor from "./components/TextEditor";
 import PPTUpload from "./components/PPTUpload";
 import Workspace from "./components/Workspace";
 import PPTEditor from "./components/PPTEditor";
-import { BrowserRouter as Router, Routes, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Switch, Link, Navigate } from 'react-router-dom';
+import {useState, createContext} from 'react';
 
 /*아직 DB 구축 전이라서 이렇게 넣음..*/
 const projects = [
@@ -35,16 +36,32 @@ const projects = [
   },
 ];
 
+export const AuthContext = createContext();
 
 function App() {
-  
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    // 로그인 처리
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    // 로그아웃 처리
+    setIsLoggedIn(false);
+    localStorage.removeItem("key");
+  };
+
   /*아직 DB 구축 전이라서 이렇게 넣음..*/
   const getProjectById = (id) => {
     return projects.find((project) => project.id === parseInt(id));
   };
 
   return (
+  
     <BrowserRouter>
+     <AuthContext.Provider value={{ isLoggedIn, handleLogin, handleLogout }}>
     <div className="App">
       <header className="App-header">
       <div>
@@ -55,7 +72,10 @@ function App() {
                 <li><Link to='/Templates' className='nav1'>TEMPLATE</Link></li>
                 <li><Link to="/Guide" className="nav1">GUIDE</Link></li>
                 <li><Link to="/UpdateInfo" className="nav1">MYPAGE</Link></li>
-                <li><Link to='/SignIn' className="logoutB">logout</Link></li>
+                {/* <li><Link to='/SignIn' className="logoutB">s</Link></li> */}
+                {isLoggedIn? (<li><Link to="/" onClick={handleLogout} className="logoutB">logout</Link></li>):(
+                        <li><Link to="/SignIn" className="logoutB">login</Link></li>
+                                )}
                 </ul> 
             </div>
             <div>
@@ -79,8 +99,9 @@ function App() {
         {/* <Main /> */}
       </header>
     </div>
-    
+     </AuthContext.Provider>
     </BrowserRouter>
+   
   );
 }
  
