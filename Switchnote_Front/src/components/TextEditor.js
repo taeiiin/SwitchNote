@@ -4,51 +4,75 @@ import refreshIcon from './images/refreshIcon.png';
 import copyIcon from './images/copyIcon.png';
 import MyButton from './MyButton.js';
 import MyTextarea from './MyTextarea.js';
+import { CallGPT } from '../api/gpt';
+import TextInput from './TextInput.js';
+import { CallKoBERT } from '../api/kobert';
 
 function TextEditor({ getProjectById }) {
   const [projectTitle, setProjectTitle] = useState('');
-  const [project, setProject] = useState(null); // 프로젝트 데이터를 저장할 상태 추가
-  const textAreaRef = useRef(null);
+  const [projectContent, setProjectContent] = useState('');
+  const [project, setProject] = useState(null);
   const { projectId } = useParams();
+  
+  // 사용자 입력값 저장 상태
+  const [userInput, setUserInput] = useState("");
 
   useEffect(() => {
     if (projectId) {
       const projectData = getProjectById(projectId);
-      if (projectData && textAreaRef.current) {
-        textAreaRef.current.value = projectData.content;
+      if (projectData) {
+        setProjectContent(projectData.content); // 프로젝트 내용 저장
+        setUserInput(projectData.content); // 프로젝트 내용이 Input이니까 userInput에도 동일한 내용 저장
         setProject(projectData); // 프로젝트 데이터 저장
         setProjectTitle(projectData.title); // 프로젝트 제목 저장
       }
     }
   }, [projectId]);
-  
-  const handleTextChange = (e) => {
-    setProject({...project, content: e.target.value});
-  };
-  
+
+  // 텍스트 새로고침
   const handleClearText = () => {
-    if(textAreaRef.current) {
-      textAreaRef.current.value = '';
-      setProject({...project, content: ''});
-    }
+    setProjectContent('');
+    setUserInput('');
   };
 
+  // 텍스트 복사
   const handleCopyText = async () => {
-    if(textAreaRef.current) {
-      await navigator.clipboard.writeText(textAreaRef.current.value);
-      alert('텍스트가 클립보드에 복사되었습니다.');
+    await navigator.clipboard.writeText(userInput);
+    alert('텍스트가 클립보드에 복사되었습니다.');
+  };
+
+  // ppt 생성 기능
+  const handleSubmit = async () => {
+    await handleCreatePPT(userInput);
+  }
+
+  const [data, setData] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // ppt 생성 함수
+  const handleCreatePPT = async(input) => {
+    try{
+      setIsLoading(true);
+      const message = await CallGPT({
+        prompt: `${input}`});
+      setData(message)
+
+      //gpt 결과를 koBERT에 전달할 것임
+      //kobertResult 변수에 kobert 수행 결과가 들어 있음
+      const kobertResult = await CallKoBERT({gptOutput: message})
+      console.log(kobertResult);
+    } catch(error) {
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleCreatePPT = () => {
-    // PPT 생성 구현
-  };
-
-  const handleDownload = () => {
+  // 입력한 텍스트를 txt 파일로 저장
+  const handleDownload = (title, content) => {
     const element = document.createElement("a");
-    const file = new Blob([project ? project.content : ''], { type: "text/plain" });
+    const file = new Blob([content], { type: "text/plain" });
     element.href = URL.createObjectURL(file);
-    element.download = project ? `${project.title}.txt` : "Untitled.txt";
+    element.download = title ? `${title}.txt` : "Untitled.txt";
     document.body.appendChild(element); 
     element.click();
   };
@@ -60,16 +84,17 @@ function TextEditor({ getProjectById }) {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <label htmlFor="fileName"></label>
           <MyTextarea
-            placeholder={project ? project.title : '파일명을 입력하세요'} // 제목이 있으면 그걸 보여주고 없으면 플레이스홀더 텍스트 보여주기
+            placeholder={project ? project.title : '파일명을 입력하세요'} 
             type={"title"}
-            value={project ? project.title : ''}
-            onChange={(e) => setProject({...project, title: e.target.value})}
+            value={projectTitle}
+            onChange={(e) => setProjectTitle(e.target.value)}
           />
-  
+
         <label htmlFor="description"></label>
-          <MyTextarea
+          <MyTextarea 
             placeholder={'부가설명을 입력하세요'}
             type={"small"}
+            isLoading={isLoading}
           />
       </div>
       
@@ -83,12 +108,10 @@ function TextEditor({ getProjectById }) {
       </div>
 
       <div>
-        <MyTextarea
-          ref={textAreaRef}
-          id="text"
-          rows="10"
-          value={project ? project.content : ''} // 프로젝트 내용이 있으면 그걸 보여주고 없으면 빈 문자열 보여주기
-          onChange={(e) => setProject({...project, content: e.target.value})} // 내용 변경 시 프로젝트 데이터도 함께 업데이트하기
+        <TextInput 
+          isLoading={isLoading} 
+          onSubmit={setUserInput} 
+          value={userInput}
         />
       </div>
 
@@ -103,12 +126,14 @@ function TextEditor({ getProjectById }) {
       
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap:'10px', marginTop:'50px'}}>
         <MyButton text={'PPT 생성'}
-            onClick={handleCreatePPT}
+            onClick={() => handleSubmit(userInput)}
             type={"blue"}
+            loading={isLoading}
         />
+
         <MyButton text={'.txt 파일로 다운로드'}
-            onClick={handleDownload}
-            type={"gray"}
+          onClick={() => handleDownload(projectTitle, userInput)}
+          type={"gray"}
         />
       </div>
     </div>
