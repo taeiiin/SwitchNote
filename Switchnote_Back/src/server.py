@@ -41,18 +41,20 @@ class BERTClassifier(nn.Module):
         return self.classifier(out)
 
 
-device_type='cpu'
-device=torch.device(device_type)
-model=BERTClassifier(bertmodel).to(device)
-checkpoint=torch.load('./checkpoint.pth', map_location=device)
-model.load_state_dict(checkpoint['model_state_dict'])
+device_type = 'cuda' if torch.cuda.is_available() else 'cpu'
+device = torch.device(device_type)
+model = BERTClassifier(bertmodel).to(device)
 
+model_checkpoint = torch.load('.\checkpoint.pth', map_location=device)
+model.load_state_dict(model_checkpoint['model_state_dict'])
+ 
 @app.route('/predict', methods=['POST'])
 def predict():
     data=request.json
     text=data['text']
 
-    inputs=tokenizer(text, return_tensors='pt').to(device)
+    tokenizer_outputs=tokenizer(text, return_tensors='pt').to(device)
+    inputs = {'token_ids': tokenizer_outputs['input_ids'], 'attention_mask': tokenizer_outputs['attention_mask']}
 
     model.eval()
 

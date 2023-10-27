@@ -47,7 +47,7 @@ export default function SignInPage() {
                 <li><a href="" className="nav1">WORKSPACE</a></li>
                 <li><Link to='/Templates' className='nav1'>TEMPLATE</Link></li>
                 <li><Link to="/Guide" className="nav1">GUIDE</Link></li>
-                <li><Link to="/TxtInput" className="nav1">MYPAGE</Link></li>
+                <li><Link to="/TextEditor" className="nav1">MYPAGE</Link></li>
                 <li><Link to='/PPTSel' className="logoutB">logout</Link></li>
                 </ul> 
             </div> */}
@@ -60,7 +60,7 @@ export default function SignInPage() {
                 </div>
                 <div className='convertToDiv'>
                     {/*div 클릭하면 발표자료 만드는 페이지로 이동 (우선 PPTUpload 페이지로 이동하도록 해놨어용~ 수정하기!)*/}
-                    <Link to="./TextEditor" style={{ textDecoration: 'none' }}>
+                    <Link to="./TxtInput" style={{ textDecoration: 'none' }}>
                         <div className='convertToPresent'>
                             <div className='leftPre'>
                                 <img src={require('./images/lineWhite.png')} width='500px'/>

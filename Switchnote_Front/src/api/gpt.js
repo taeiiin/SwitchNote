@@ -95,7 +95,7 @@ export const CallGPT = async ({prompt}) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_GPT_API_KEY}`,
+            Authorization: `Bearer ${process.env.REACT_APP_GPT_API_KEY}`,
         },
         body: JSON.stringify({
             model: "gpt-3.5-turbo",
@@ -104,10 +104,16 @@ export const CallGPT = async ({prompt}) => {
             max_tokens: 1_000,
         }),
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const responseData = await response.json();
-    console.log(">>responseData", responseData);
+    
+    if (!responseData.choices || !responseData.choices.length) {
+      throw new Error('No choices in response data');
+    }
 
-    const message = responseData.choices[0].message.content;
-
-    return message;
+   return responseData.choices[0].message.content;
 };
