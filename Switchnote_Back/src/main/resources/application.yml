@@ -2,13 +2,12 @@ spring:
   # DB ?? ?? ??
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/switchnote?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: rootbeer
+    url: jdbc:mysql://switchnote-db2.cg3qxmigscls.ap-southeast-2.rds.amazonaws.com:3306/switchnoteDB?serverTimezone=UTC&characterEncoding=UTF-8
+    username: admin
+    password: switchnote
   # JPA ??
   jpa:
     hibernate:
-      ddl-auto: create-drop
     show-sql: true
 
   # OAuth ???

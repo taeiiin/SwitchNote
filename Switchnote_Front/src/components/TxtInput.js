@@ -8,6 +8,7 @@ import MyTextarea from './MyTextarea.js';
 import { CallGPT } from '../api/gpt';
 import TextInput from './TextInput.js';
 import { CallKoBERT } from '../api/kobert';
+// import {ConvertPPT} from '../api/convertPPT.py'
 
 function TxtInput({ getProjectById }) {
   const [projectTitle, setProjectTitle] = useState('');
@@ -45,6 +46,8 @@ function TxtInput({ getProjectById }) {
   // ppt 생성 기능
   const handleSubmit = async () => {
     await handleCreatePPT(userInput);
+    // transformGPTOutput(handleCreatePPT(userInput));
+
   }
 
   const [data, setData] = useState("");
@@ -58,9 +61,14 @@ function TxtInput({ getProjectById }) {
         prompt: `${input}`});
       console.log(message);
 
+      console.log(transformGPTOutput(message));
+      
       //kobertResult 변수에 kobert 수행 결과가 들어 있음
       const kobertResult = await CallKoBERT({text: `${input}`})
       console.log(kobertResult);
+
+      // const url = await ConvertPPT(transformGPTOutput(message));
+      // console.log(url);
     } catch(error) {
       console.error(error);
     } finally {
@@ -84,7 +92,7 @@ function TxtInput({ getProjectById }) {
     };
   
     for (const page of pages) {
-        const lines = page.split('');
+        const lines = page.split('\n');
   
         let title = "", subtitle = "", contentList = [], pageNumber = 0, pageType = "";
   

@@ -71,7 +71,9 @@ function App() {
                 <li><Link to="/Workspace" className="nav1">WORKSPACE</Link></li>
                 <li><Link to='/Templates' className='nav1'>TEMPLATE</Link></li>
                 <li><Link to="/Guide" className="nav1">GUIDE</Link></li>
-                <li><Link to="/UpdateInfo" className="nav1">MYPAGE</Link></li>
+                {isLoggedIn? (<li><Link to="/UpdateInfo" className="nav1">MYPAGE</Link></li>):(
+                        <li><Link to="/SignIn" className="nav1">MYPAGE</Link></li>
+                )}
                 {/* <li><Link to='/SignIn' className="logoutB">s</Link></li> */}
                 {isLoggedIn? (<li><Link to="/" onClick={handleLogout} className="logoutB">logout</Link></li>):(
                         <li><Link to="/SignIn" className="logoutB">login</Link></li>

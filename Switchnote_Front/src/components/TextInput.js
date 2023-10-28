@@ -8,9 +8,9 @@ const TextInput = ({isLoading, onSubmit, placeholder, value}) => {
 
     return (
       <div>
-        <p style={{fontSize: "15px", color: "black", textAlign: "right"}}>{value.length} / 1000</p>
+        <p style={{fontSize: "15px", color: "black", textAlign: "right"}}>{value.length} / 900</p>
         <MyTextarea 
-          maxLength = "1000"
+          maxLength = "900"
           onChange = {handleUserInput}
           text = {value}
           placeholder = {placeholder}
