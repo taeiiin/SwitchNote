@@ -6,3 +6,4 @@ PPTtoScript.py filter=lfs diff=lfs merge=lfs -text
 ToScriptS.js filter=lfs diff=lfs merge=lfs -text
 ToScript.js filter=lfs diff=lfs merge=lfs -text
 .env filter=lfs diff=lfs merge=lfs -text
+*.env filter=lfs diff=lfs merge=lfs -text
