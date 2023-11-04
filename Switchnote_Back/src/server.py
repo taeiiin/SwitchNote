@@ -76,6 +76,12 @@ def predict():
             text_eval="art"
       elif prediction in [1,2,7,8]:
             text_eval="food"
+      elif prediction in [15,20]:
+            text_eval="humanities"
+      elif prediction in [17]:
+            text_eval="medical"
+      elif prediction in [3,12,13]:
+            text_eval="nature_travel"
       elif prediction == 4:
             text_eval='IT_computer'
 

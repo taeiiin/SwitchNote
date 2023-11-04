@@ -36,7 +36,7 @@ def PtoS(ppt):
     t = ' '.join(t)
 
     #OPENAI 연결 및 프롬프트 엔지니어링
-    openai.api_key = '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'
+    openai.api_key = ''
     messages = [
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": t},
